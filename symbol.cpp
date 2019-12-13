@@ -2,27 +2,24 @@
 
 struct Symbol {
 private:
-    char *type;
-    void *value;
+    char *type = nullptr;
+    void *value = nullptr;
 public:
     explicit Symbol(const char *type, const void *value) {
         size_t type_size = strlen(type) * sizeof(char);
-        Symbol::type = static_cast<char *>(malloc(type_size));
+        Symbol::type = (char *) (malloc(type_size));
         memcpy(Symbol::type, type, type_size);
         Symbol::value = malloc(sizeof(value));
         memcpy(Symbol::value, value, sizeof(value));
     }
 
-    Symbol() {
-        type = nullptr;
-        value = nullptr;
-    }
+    Symbol() = default;
 
     void set_type(const char *type) {
-        size_t type_size = strlen(type) * sizeof(char);
-        Symbol::type = static_cast<char *>(malloc(type_size * sizeof(char)));
+        size_t type_size = strlen(type) + 1;
+        Symbol::type = (char *) (malloc(type_size * sizeof(char)));
+        memset(Symbol::type, 0, type_size * sizeof(char));
         memcpy(Symbol::type, type, type_size * sizeof(char));
-        *(Symbol::type + type_size) = 0;
     }
 
     void set_value(const void *value) {
@@ -36,9 +33,9 @@ public:
     }
 
     void set_char_value(const char *value) {
-        size_t size = strlen(value);
+        size_t size = strlen(value) + 1;
         Symbol::value = malloc(size * sizeof(char));
-        memset(Symbol::value, 0, (size + 1) * sizeof(char));
+        memset(Symbol::value, 0, size * sizeof(char));
         memcpy(Symbol::value, value, size * sizeof(char));
     }
 

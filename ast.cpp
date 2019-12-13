@@ -1,7 +1,7 @@
 #include "var.cpp"
 
 struct AST {
-//private:
+private:
     void *left = nullptr;
     int left_flag = 0;
     int left_type = 0;
@@ -10,7 +10,7 @@ struct AST {
     int right_type = 0;
     int condition = -1;
 
-//public:
+public:
     AST() = default;
 
     void set_left(void *left, size_t left_size, int left_type) {

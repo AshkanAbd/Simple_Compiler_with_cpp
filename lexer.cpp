@@ -2,12 +2,12 @@
 
 struct Lexer {
 private:
-    char *input;
-    char *tmp;
+    char *input = nullptr;
+    char *tmp = nullptr;
     int pose = 0;
-    int tmp_pose;
-    size_t input_size;
-    size_t tmp_size;
+    int tmp_pose = 0;
+    size_t input_size = 0;
+    size_t tmp_size = 0;
     std::regex *regex = nullptr;
     std::smatch *match = nullptr;
 
@@ -15,22 +15,23 @@ public:
     explicit Lexer(const char *user_input) {
         char *main_input = remove_space(user_input);
         Lexer::input_size = strlen(main_input);
-        Lexer::input = static_cast<char *>(malloc(input_size * sizeof(char)));
+        Lexer::input = (char *) (malloc(input_size * sizeof(char)));
         memcpy(Lexer::input, main_input, input_size * sizeof(char));
         clear();
     }
 
     void clear() {
         tmp_size = input_size - pose;
-        tmp = static_cast<char *>(malloc(tmp_size * sizeof(char)));
+        tmp = (char *) (malloc(tmp_size * sizeof(char)));
         memset(tmp, 0, tmp_size * sizeof(char));
         tmp_pose = 0;
     }
 
-    void next() {
+    int next() {
         char c = *(input + pose++);
         *(tmp + tmp_pose++) = c;
         *(tmp + tmp_pose) = 0;
+        return c != 0;
     }
 
     void back() {

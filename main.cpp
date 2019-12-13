@@ -12,7 +12,7 @@ int main(int argc, char **argv) {
             while (lexer->has_next()) {
                 lexer->next();
                 while (lexer->check()) {
-                    lexer->next();
+                    if (!lexer->next()) break;
                 }
                 lexer->back();
                 Symbol symbol;
@@ -31,34 +31,33 @@ int main(int argc, char **argv) {
         auto *readAst = new ReadAST;
         readAst->read(ast);
     } else {
-        while (true) {
-            auto *symbols = (Symbol *) malloc(1000 * sizeof(Symbol));
-            memset(symbols, 0, 1000 * sizeof(Symbol));
-            int symbols_size = 0;
-            std::string input;
-            while (std::getline(std::cin, input)) {
-                auto *lexer = new Lexer(input.c_str());
-                while (lexer->has_next()) {
+        auto *symbols = (Symbol *) malloc(1000 * sizeof(Symbol));
+        memset(symbols, 0, 1000 * sizeof(Symbol));
+        int symbols_size = 0;
+        std::string input;
+        while (std::getline(std::cin, input)) {
+            if (str_check(input.c_str(), "$")) break;
+            auto *lexer = new Lexer(input.c_str());
+            while (lexer->has_next()) {
+                lexer->next();
+                while (lexer->check()) {
                     lexer->next();
-                    while (lexer->check()) {
-                        lexer->next();
-                    }
-                    lexer->back();
-                    Symbol symbol;
-                    lexer->get_symbol(&symbol);
-                    *(symbols + symbols_size++) = symbol;
-                    if (symbols_size >= 1000) {
-                        realloc(symbols, 2000 * sizeof(Symbol));
-                    }
-                    lexer->clear();
                 }
+                lexer->back();
+                Symbol symbol;
+                lexer->get_symbol(&symbol);
+                *(symbols + symbols_size++) = symbol;
+                if (symbols_size >= 1000) {
+                    realloc(symbols, 2000 * sizeof(Symbol));
+                }
+                lexer->clear();
             }
-            realloc(symbols, symbols_size * sizeof(Symbol));
-            AST *ast = new AST;
-            auto *parser = new Parser(symbols, symbols_size, ast);
-            parser->start();
-            auto *readAst = new ReadAST;
-            readAst->read(ast);
         }
+        realloc(symbols, symbols_size * sizeof(Symbol));
+        AST *ast = new AST;
+        auto *parser = new Parser(symbols, symbols_size, ast);
+        parser->start();
+        auto *readAst = new ReadAST;
+        readAst->read(ast);
     }
 }

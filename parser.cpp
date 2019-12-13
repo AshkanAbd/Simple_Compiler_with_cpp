@@ -2,8 +2,8 @@
 
 struct Parser {
 private:
-    Symbol *symbols;
-    size_t symbols_size;
+    Symbol *symbols = nullptr;
+    size_t symbols_size = 0;
     int pose = 0;
     int line = 1;
     AST *head_ast = nullptr;
