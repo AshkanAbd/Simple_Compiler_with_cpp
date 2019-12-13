@@ -3,4 +3,4 @@ project(Compiler)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(Compiler main.cpp lexer.cpp tokens.h symbol.cpp parser.cpp var.cpp functions.cpp ast.cpp)
+add_executable(Compiler main.cpp lexer.cpp tokens.h symbol.cpp parser.cpp var.cpp functions.cpp ast.cpp read_ast.cpp)

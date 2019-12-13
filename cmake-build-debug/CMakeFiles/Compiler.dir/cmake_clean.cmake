@@ -6,6 +6,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/Compiler.dir/var.cpp.obj"
   "CMakeFiles/Compiler.dir/functions.cpp.obj"
   "CMakeFiles/Compiler.dir/ast.cpp.obj"
+  "CMakeFiles/Compiler.dir/read_ast.cpp.obj"
   "Compiler.pdb"
   "Compiler.exe"
   "Compiler.exe.manifest"

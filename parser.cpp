@@ -5,12 +5,8 @@ private:
     Symbol *symbols;
     size_t symbols_size;
     int pose = 0;
-    Var *vars = nullptr;
     int line = 1;
-
-    static void out(double d) {
-        printf(">>> %.6g\n", d);
-    }
+    AST *head_ast = nullptr;
 
     void move_to_eol() {
         while (true) {
@@ -21,156 +17,161 @@ private:
         }
     }
 
-    int stmts() {
+    int stmts(AST *ast) {
         if (symbols_size <= pose) {
             return 1;
         }
-        if (stmt()) {
-            return stmts();
+        AST *ast1 = new AST;
+        if (stmt(ast1)) {
+            ast->set_left(ast1, sizeof(AST), AST_TYPE);
+            ast->set_condition(EOL_FLAG);
+            AST *ast2 = new AST;
+            if (stmts(ast2)) {
+                ast->set_right(ast2, sizeof(AST), AST_TYPE);
+                return 1;
+            }
         }
         return 0;
     }
 
-    int stmt() {
+    int stmt(AST *ast) {
         if (str_check((symbols + pose)->get_type(), EOL_T)) {
             pose++;
             line++;
             return 1;
         }
-        if (var()) {
+        if (var(ast)) {
             if (str_check((symbols + pose)->get_type(), EOL_T)) {
                 pose++;
                 line++;
                 return 1;
             }
-            printf("Line %d: Got '%s', but need '%s'\n", line, (symbols + pose)->get_type(), EOL_T);
+            printf("Compile error in line %d: Got '%s', but need '%s'\n", line, (symbols + pose)->get_type(), EOL_T);
             return 0;
         }
-        double d = 0;
-        if (exp(&d)) {
+        AST *ast1 = new AST;
+        if (exp(ast1)) {
             if (str_check((symbols + pose)->get_type(), EOL_T)) {
                 pose++;
                 line++;
-                out(d);
+                ast->set_left(ast1, sizeof(AST), AST_TYPE);
+                ast->set_condition(PRINT_FLAG);
                 return 1;
             }
-            printf("Line %d: Got '%s', but need '%s'\n", line, (symbols + pose)->get_type(), EOL_T);
+            printf("Compile error in line %d: Got '%s', but need '%s'\n", line, (symbols + pose)->get_type(), EOL_T);
             return 0;
         }
         return 1;
     }
 
-    int var() {
+    int var(AST *ast) {
         if (!(pose + 1 < symbols_size && str_check((symbols + pose + 1)->get_type(), EQU_T))) {
             return 0;
         }
         if (str_check((symbols + pose)->get_type(), VAR_T)) {
-            char *variable = (symbols + pose)->get_char_value();
+            Symbol *symbol = (symbols + pose);
+            ast->set_left(symbol, sizeof(Symbol), SYMBOL_TYPE);
             pose++;
             if (str_check((symbols + pose)->get_type(), EQU_T)) {
                 pose++;
-                double d = 0;
-                if (exp(&d)) {
-                    save_var(variable, vars, &d);
+                AST *ast1 = new AST;
+                if (exp(ast1)) {
+                    ast->set_right(ast1, sizeof(AST), AST_TYPE);
+                    ast->set_condition(EQU_FLAG);
                     return 1;
                 }
                 return 0;
             } else {
-                double d1 = 0;
-                if (get_var(variable, vars, &d1)) {
-                    out(d1);
-                } else {
-                    printf("Line %d: Undefined variable: %s\n", line, variable);
-                }
+                ast->set_condition(PRINT_FLAG);
             }
             return 1;
         }
         return 0;
     }
 
-    int exp(double *d) {
-        double d1 = 0;
-        if (term(&d1)) {
+    int exp(AST *ast) {
+        AST *ast2 = new AST;
+        if (term(ast2)) {
             if (str_check((symbols + pose)->get_type(), PLUS_T)) {
                 pose++;
-                double d2 = 0;
-                if (exp(&d2)) {
-                    d1 = d1 + d2;
-                    memcpy(d, &d1, sizeof(double));
+                AST *ast1 = new AST;
+                if (exp(ast1)) {
+                    ast->set_left(ast2, sizeof(AST), AST_TYPE);
+                    ast->set_right(ast1, sizeof(AST), AST_TYPE);
+                    ast->set_condition(PLUS_FLAG);
                     return 1;
                 }
                 return 0;
             }
             if (str_check((symbols + pose)->get_type(), MINUS_T)) {
                 pose++;
-                double d2 = 0;
-                if (exp(&d2)) {
-                    d1 = d1 - d2;
-                    memcpy(d, &d1, sizeof(double));
+                AST *ast1 = new AST;
+                if (exp(ast1)) {
+                    ast->set_left(ast2, sizeof(AST), AST_TYPE);
+                    ast->set_right(ast1, sizeof(AST), AST_TYPE);
+                    ast->set_condition(MINUS_FLAG);
                     return 1;
                 }
                 return 0;
             }
-            memcpy(d, &d1, sizeof(double));
+            memcpy(ast, ast2, sizeof(AST));
             return 1;
         }
         return 0;
     }
 
-    int term(double *d) {
-        double d1 = 0;
-        if (factor(&d1)) {
+    int term(AST *ast) {
+        AST *ast2 = new AST;
+        if (factor(ast2)) {
             if (str_check((symbols + pose)->get_type(), MULTI_T)) {
                 pose++;
-                double d2 = 0;
-                if (term(&d2)) {
-                    d1 = d1 * d2;
-                    memcpy(d, &d1, sizeof(double));
+                AST *ast1 = new AST;
+                if (term(ast1)) {
+                    ast->set_left(ast2, sizeof(AST), AST_TYPE);
+                    ast->set_right(ast1, sizeof(AST), AST_TYPE);
+                    ast->set_condition(MULTI_FLAG);
                     return 1;
                 }
                 return 0;
             }
             if (str_check((symbols + pose)->get_type(), DIV_T)) {
                 pose++;
-                double d2 = 0;
-                if (term(&d2)) {
-                    if (d2 == 0) {
-                        printf("Line %d: Divide on 0!!!\n", line);
-                        return 1;
-                    }
-                    d1 = d1 / d2;
-                    memcpy(d, &d1, sizeof(double));
+                AST *ast1 = new AST;
+                if (term(ast1)) {
+                    ast->set_left(ast2, sizeof(AST), AST_TYPE);
+                    ast->set_right(ast1, sizeof(AST), AST_TYPE);
+                    ast->set_condition(DIV_FLAG);
                     return 1;
                 }
                 return 0;
             }
-            memcpy(d, &d1, sizeof(double));
+            memcpy(ast, ast2, sizeof(AST));
             return 1;
         }
         return 0;
     }
 
-    int factor(double *d) {
-        double d1 = 0;
-        if (parents(&d1)) {
-            memcpy(d, &d1, sizeof(double));
+    int factor(AST *ast) {
+        AST *ast1 = new AST;
+        if (parents(ast1)) {
+            memcpy(ast, ast1, sizeof(AST));
             return 1;
         }
-        if (id(&d1)) {
-            memcpy(d, &d1, sizeof(double));
+        if (id(ast1)) {
+            memcpy(ast, ast1, sizeof(AST));
             return 1;
         }
         return 0;
     }
 
-    int parents(double *d) {
+    int parents(AST *ast) {
         if (str_check((symbols + pose)->get_type(), P_O_T)) {
             pose++;
-            double d1 = 0;
-            if (exp(&d1)) {
+            AST *ast1 = new AST;
+            if (exp(ast1)) {
                 if (str_check((symbols + pose)->get_type(), P_C_T)) {
                     pose++;
-                    memcpy(d, &d1, sizeof(double));
+                    memcpy(ast, ast1, sizeof(AST));
                     return 1;
                 }
             }
@@ -178,38 +179,32 @@ private:
         return 0;
     }
 
-    int id(double *d) {
+    int id(AST *ast) {
         if (str_check((symbols + pose)->get_type(), NUM_T)) {
             Symbol *symbol = (symbols + pose);
-            double d1 = symbol->get_num_value();
-            memcpy(d, &d1, sizeof(double));
+            ast->set_left(symbol, sizeof(Symbol), SYMBOL_TYPE);
             pose++;
             return 1;
         }
         if (str_check((symbols + pose)->get_type(), VAR_T)) {
-            char *variable = (symbols + pose)->get_char_value();
-            double d1 = 0;
-            if (get_var(variable, vars, &d1)) {
-                memcpy(d, &d1, sizeof(double));
-            } else {
-                printf("Line %d: Undefined variable: %s\n", line, variable);
-            }
+            Symbol *symbol = (symbols + pose);
+            ast->set_left(symbol, sizeof(Symbol), SYMBOL_TYPE);
             pose++;
             return 1;
         }
-        printf("Line %d: Got '%s', but need '%s' or '%s'\n", line, (symbols + pose)->get_type(), NUM_T, VAR_T);
+        printf("Compile error in line %d: Got '%s', but need '%s' or '%s'\n", line, (symbols + pose)->get_type(), NUM_T,
+               VAR_T);
         return 0;
     }
 
 public:
-    Parser(Symbol *symbols, size_t symbols_size) : symbols_size(symbols_size) {
+    Parser(Symbol *symbols, size_t symbols_size, AST *ast) : symbols_size(symbols_size), head_ast(ast) {
         Parser::symbols = (Symbol *) malloc((symbols_size + 1) * sizeof(Symbol));
         memset(Parser::symbols, 0, (symbols_size + 1) * sizeof(Symbol));
         memcpy(Parser::symbols, symbols, (symbols_size + 1) * sizeof(Symbol));
-        vars = new Var(nullptr);
     }
 
     void start() {
-        stmts();
+        stmts(head_ast);
     }
 };

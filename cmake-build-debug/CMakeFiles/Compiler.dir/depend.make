@@ -7,6 +7,7 @@ CMakeFiles/Compiler.dir/ast.cpp.obj: ../symbol.cpp
 CMakeFiles/Compiler.dir/ast.cpp.obj: ../tokens.h
 CMakeFiles/Compiler.dir/ast.cpp.obj: ../var.cpp
 
+CMakeFiles/Compiler.dir/functions.cpp.obj: ../ast.cpp
 CMakeFiles/Compiler.dir/functions.cpp.obj: ../functions.cpp
 CMakeFiles/Compiler.dir/functions.cpp.obj: ../lexer.cpp
 CMakeFiles/Compiler.dir/functions.cpp.obj: ../symbol.cpp
@@ -21,6 +22,7 @@ CMakeFiles/Compiler.dir/main.cpp.obj: ../ast.cpp
 CMakeFiles/Compiler.dir/main.cpp.obj: ../lexer.cpp
 CMakeFiles/Compiler.dir/main.cpp.obj: ../main.cpp
 CMakeFiles/Compiler.dir/main.cpp.obj: ../parser.cpp
+CMakeFiles/Compiler.dir/main.cpp.obj: ../read_ast.cpp
 CMakeFiles/Compiler.dir/main.cpp.obj: ../symbol.cpp
 CMakeFiles/Compiler.dir/main.cpp.obj: ../tokens.h
 CMakeFiles/Compiler.dir/main.cpp.obj: ../var.cpp
@@ -31,6 +33,14 @@ CMakeFiles/Compiler.dir/parser.cpp.obj: ../parser.cpp
 CMakeFiles/Compiler.dir/parser.cpp.obj: ../symbol.cpp
 CMakeFiles/Compiler.dir/parser.cpp.obj: ../tokens.h
 CMakeFiles/Compiler.dir/parser.cpp.obj: ../var.cpp
+
+CMakeFiles/Compiler.dir/read_ast.cpp.obj: ../ast.cpp
+CMakeFiles/Compiler.dir/read_ast.cpp.obj: ../lexer.cpp
+CMakeFiles/Compiler.dir/read_ast.cpp.obj: ../parser.cpp
+CMakeFiles/Compiler.dir/read_ast.cpp.obj: ../read_ast.cpp
+CMakeFiles/Compiler.dir/read_ast.cpp.obj: ../symbol.cpp
+CMakeFiles/Compiler.dir/read_ast.cpp.obj: ../tokens.h
+CMakeFiles/Compiler.dir/read_ast.cpp.obj: ../var.cpp
 
 CMakeFiles/Compiler.dir/symbol.cpp.obj: ../symbol.cpp
 CMakeFiles/Compiler.dir/symbol.cpp.obj: ../tokens.h

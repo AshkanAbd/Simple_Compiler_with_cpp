@@ -9,6 +9,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "D:/Developer/Cpp/Compiler/lexer.cpp" "D:/Developer/Cpp/Compiler/cmake-build-debug/CMakeFiles/Compiler.dir/lexer.cpp.obj"
   "D:/Developer/Cpp/Compiler/main.cpp" "D:/Developer/Cpp/Compiler/cmake-build-debug/CMakeFiles/Compiler.dir/main.cpp.obj"
   "D:/Developer/Cpp/Compiler/parser.cpp" "D:/Developer/Cpp/Compiler/cmake-build-debug/CMakeFiles/Compiler.dir/parser.cpp.obj"
+  "D:/Developer/Cpp/Compiler/read_ast.cpp" "D:/Developer/Cpp/Compiler/cmake-build-debug/CMakeFiles/Compiler.dir/read_ast.cpp.obj"
   "D:/Developer/Cpp/Compiler/symbol.cpp" "D:/Developer/Cpp/Compiler/cmake-build-debug/CMakeFiles/Compiler.dir/symbol.cpp.obj"
   "D:/Developer/Cpp/Compiler/var.cpp" "D:/Developer/Cpp/Compiler/cmake-build-debug/CMakeFiles/Compiler.dir/var.cpp.obj"
   )

@@ -257,6 +257,33 @@ parser.cpp.s:
 	$(MAKE) -f CMakeFiles\Compiler.dir\build.make CMakeFiles/Compiler.dir/parser.cpp.s
 .PHONY : parser.cpp.s
 
+read_ast.obj: read_ast.cpp.obj
+
+.PHONY : read_ast.obj
+
+# target to build an object file
+read_ast.cpp.obj:
+	$(MAKE) -f CMakeFiles\Compiler.dir\build.make CMakeFiles/Compiler.dir/read_ast.cpp.obj
+.PHONY : read_ast.cpp.obj
+
+read_ast.i: read_ast.cpp.i
+
+.PHONY : read_ast.i
+
+# target to preprocess a source file
+read_ast.cpp.i:
+	$(MAKE) -f CMakeFiles\Compiler.dir\build.make CMakeFiles/Compiler.dir/read_ast.cpp.i
+.PHONY : read_ast.cpp.i
+
+read_ast.s: read_ast.cpp.s
+
+.PHONY : read_ast.s
+
+# target to generate assembly for a file
+read_ast.cpp.s:
+	$(MAKE) -f CMakeFiles\Compiler.dir\build.make CMakeFiles/Compiler.dir/read_ast.cpp.s
+.PHONY : read_ast.cpp.s
+
 symbol.obj: symbol.cpp.obj
 
 .PHONY : symbol.obj
@@ -335,6 +362,9 @@ help:
 	@echo ... parser.obj
 	@echo ... parser.i
 	@echo ... parser.s
+	@echo ... read_ast.obj
+	@echo ... read_ast.i
+	@echo ... read_ast.s
 	@echo ... symbol.obj
 	@echo ... symbol.i
 	@echo ... symbol.s

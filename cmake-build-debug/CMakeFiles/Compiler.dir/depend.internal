@@ -8,6 +8,7 @@ CMakeFiles/Compiler.dir/ast.cpp.obj
  D:/Developer/Cpp/Compiler/tokens.h
  D:/Developer/Cpp/Compiler/var.cpp
 CMakeFiles/Compiler.dir/functions.cpp.obj
+ D:/Developer/Cpp/Compiler/ast.cpp
  D:/Developer/Cpp/Compiler/functions.cpp
  D:/Developer/Cpp/Compiler/lexer.cpp
  D:/Developer/Cpp/Compiler/symbol.cpp
@@ -22,6 +23,7 @@ CMakeFiles/Compiler.dir/main.cpp.obj
  D:/Developer/Cpp/Compiler/lexer.cpp
  D:/Developer/Cpp/Compiler/main.cpp
  D:/Developer/Cpp/Compiler/parser.cpp
+ D:/Developer/Cpp/Compiler/read_ast.cpp
  D:/Developer/Cpp/Compiler/symbol.cpp
  D:/Developer/Cpp/Compiler/tokens.h
  D:/Developer/Cpp/Compiler/var.cpp
@@ -29,6 +31,14 @@ CMakeFiles/Compiler.dir/parser.cpp.obj
  D:/Developer/Cpp/Compiler/ast.cpp
  D:/Developer/Cpp/Compiler/lexer.cpp
  D:/Developer/Cpp/Compiler/parser.cpp
+ D:/Developer/Cpp/Compiler/symbol.cpp
+ D:/Developer/Cpp/Compiler/tokens.h
+ D:/Developer/Cpp/Compiler/var.cpp
+CMakeFiles/Compiler.dir/read_ast.cpp.obj
+ D:/Developer/Cpp/Compiler/ast.cpp
+ D:/Developer/Cpp/Compiler/lexer.cpp
+ D:/Developer/Cpp/Compiler/parser.cpp
+ D:/Developer/Cpp/Compiler/read_ast.cpp
  D:/Developer/Cpp/Compiler/symbol.cpp
  D:/Developer/Cpp/Compiler/tokens.h
  D:/Developer/Cpp/Compiler/var.cpp

@@ -1,4 +1,4 @@
-#include "var.cpp"
+#include "ast.cpp"
 
 bool str_check(const char *c1, const char *c2) {
     if (c1 == nullptr || c2 == nullptr) {

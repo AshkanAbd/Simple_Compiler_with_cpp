@@ -95,6 +95,9 @@
 		<Unit filename="D:/Developer/Cpp/Compiler/parser.cpp">
 			<Option target="Compiler"/>
 		</Unit>
+		<Unit filename="D:/Developer/Cpp/Compiler/read_ast.cpp">
+			<Option target="Compiler"/>
+		</Unit>
 		<Unit filename="D:/Developer/Cpp/Compiler/symbol.cpp">
 			<Option target="Compiler"/>
 		</Unit>

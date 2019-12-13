@@ -32,14 +32,19 @@
 #define EOL_T ";"
 
 // flags
-#define AST_FLAG 00
-#define VAR_FLAG 01
-#define NUM_FLAG 02
-#define PLUS_FLAG 03
-#define MINUS_FLAG 04
-#define MULTI_FLAG 05
-#define DIV_FLAG 06
-#define PAR_FLAG 07
-#define EQU_FLAG 08
-#define SYMBOL_FLAG 09
+#define AST_FLAG 0
+#define VAR_FLAG 1
+#define NUM_FLAG 2
+#define PLUS_FLAG 3
+#define MINUS_FLAG 4
+#define MULTI_FLAG 5
+#define DIV_FLAG 6
+#define PAR_FLAG 7
+#define EQU_FLAG 8
+#define SYMBOL_FLAG 9
 #define PRINT_FLAG 10
+#define EOL_FLAG 11
+
+//types
+#define AST_TYPE 0
+#define SYMBOL_TYPE 1

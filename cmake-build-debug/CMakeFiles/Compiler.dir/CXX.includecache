@@ -10,21 +10,21 @@ D:/Developer/Cpp/Compiler/ast.cpp
 var.cpp
 D:/Developer/Cpp/Compiler/var.cpp
 
-D:/Developer/Cpp/Compiler/functions.cpp
-var.cpp
-D:/Developer/Cpp/Compiler/var.cpp
-
 D:/Developer/Cpp/Compiler/lexer.cpp
 symbol.cpp
 D:/Developer/Cpp/Compiler/symbol.cpp
 
 D:/Developer/Cpp/Compiler/main.cpp
-parser.cpp
-D:/Developer/Cpp/Compiler/parser.cpp
+read_ast.cpp
+D:/Developer/Cpp/Compiler/read_ast.cpp
 
 D:/Developer/Cpp/Compiler/parser.cpp
 ast.cpp
 D:/Developer/Cpp/Compiler/ast.cpp
+
+D:/Developer/Cpp/Compiler/read_ast.cpp
+parser.cpp
+D:/Developer/Cpp/Compiler/parser.cpp
 
 D:/Developer/Cpp/Compiler/symbol.cpp
 tokens.h

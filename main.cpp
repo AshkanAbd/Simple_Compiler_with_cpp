@@ -1,4 +1,4 @@
-#include "parser.cpp"
+#include "read_ast.cpp"
 
 int main() {
     Symbol *symbols = (Symbol *) malloc(1000 * sizeof(Symbol));
@@ -24,6 +24,9 @@ int main() {
         }
     }
     realloc(symbols, symbols_size * sizeof(Symbol));
-    Parser *parser = new Parser(symbols, symbols_size);
+    AST *ast = new AST;
+    Parser *parser = new Parser(symbols, symbols_size, ast);
     parser->start();
+    ReadAST *readAst = new ReadAST;
+    readAst->read(ast);
 }
