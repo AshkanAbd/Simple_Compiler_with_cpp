@@ -61,7 +61,7 @@ private:
             printf("Compile error in line %d: Got '%s', but need '%s'\n", line, (symbols + pose)->get_type(), EOL_T);
             return 0;
         }
-        return 1;
+        return 0;
     }
 
     int var(AST *ast) {
@@ -83,8 +83,8 @@ private:
                 return 0;
             } else {
                 ast->set_condition(PRINT_FLAG);
+                return 1;
             }
-            return 1;
         }
         return 0;
     }
@@ -174,6 +174,7 @@ private:
                     memcpy(ast, ast1, sizeof(AST));
                     return 1;
                 }
+                return 0;
             }
         }
         return 0;
