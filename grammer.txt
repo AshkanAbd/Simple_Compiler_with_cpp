@@ -1,0 +1,48 @@
+STMTS:  STMT
+    |   %
+
+STMT:   ';'
+    |   VAR ';'
+    |   EXP ';'
+
+VAR:    var
+    |   var '=' EXP
+
+EXP:    '-' TERM
+    |   '-' TERM '+' EXP
+    |   '-' TERM '-' EXP
+    |   TERM
+    |   TERM '+' EXP
+    |   TERM '-' EXP
+
+TERM:   TERM_POW
+    |   TERM_POW '*' TERM
+    |   TERM_POW '/' TERM
+    |   TERM_POW div_i TERM
+    |   TERM_POW mod TERM
+
+TERM_POW:   FACTOR
+        |   FACTOR '^' TERM_POW
+
+FACTOR:     UNARY
+        |   PARENTS
+        |   FUNCTIONS
+        |   ID
+
+UNARY:  '-' EXP
+
+FUNCTIONS:  sin PARENTS
+        |   cos PARENTS
+        |   tan PARENTS
+        |   cot PARENTS
+        |   log PARENTS
+        |   exp PARENTS
+        |   sqr PARENTS
+        |   sqrt PARENTS
+
+PARENTS:    '(' EXP ')'
+
+ID:     num
+    |   pi
+    |   neper
+    |   var

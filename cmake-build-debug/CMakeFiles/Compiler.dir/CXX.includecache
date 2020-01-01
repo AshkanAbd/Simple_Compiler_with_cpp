@@ -51,6 +51,8 @@ regex
 -
 fstream
 -
+cmath
+-
 
 D:/Developer/Cpp/Compiler/var.cpp
 lexer.cpp

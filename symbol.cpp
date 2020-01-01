@@ -2,6 +2,7 @@
 
 struct Symbol {
 private:
+public:
     char *type = nullptr;
     void *value = nullptr;
 public:
@@ -58,4 +59,10 @@ public:
 
 bool str_check(const char *c1, const char *c2);
 
-char *remove_space(const char *input);
+void remove_space(char *input);
+
+void add_ast_size(size_t size);
+
+size_t get_ast_size();
+
+void infix_to_postfix(Symbol *symbol, int symbol_pose, int size, int line);

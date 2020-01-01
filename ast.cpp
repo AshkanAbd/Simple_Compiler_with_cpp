@@ -1,7 +1,7 @@
 #include "var.cpp"
 
 struct AST {
-private:
+public:
     void *left = nullptr;
     int left_flag = 0;
     int left_type = 0;
@@ -18,6 +18,7 @@ public:
         memcpy(AST::left, left, left_size);
         left_flag = 1;
         AST::left_type = left_type;
+        add_ast_size(left_size);
     }
 
     void set_right(void *right, size_t right_size, int right_type) {
@@ -25,6 +26,7 @@ public:
         memcpy(AST::right, right, right_size);
         right_flag = 1;
         AST::right_type = right_type;
+        add_ast_size(right_size);
     }
 
     void set_condition(int condition) {
